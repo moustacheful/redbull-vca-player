@@ -15,6 +15,7 @@
    import flash.media.Sound;
    import flash.media.SoundChannel;
    import flash.utils.Timer;
+   import flash.utils.getTimer;
 
    import VCAVideo;
    import VCAVideoEvent;
@@ -27,7 +28,7 @@
    		private var state:String = 'loading';
 		
 		private var sources:Array = [];
-		private var videoData:Object;
+		private var videoData:Object = new Object();
 		
 		private var videos:Array = [];
 		private var master:VCAVideo;
@@ -73,9 +74,9 @@
 			var flashVars:Object = stage.loaderInfo.parameters
 			ng = AngularJSAdapter.getInstance();
 			ng.setFlashId(flashVars.w11kFlashId || 'NONE');
-			ng.expose('setSources',getSources);
+			ng.expose('setSources',setSources);
 			ng.expose('setAudio',getAudio);
-			ng.expose('setVideoData',getVideoData)
+			ng.expose('setTimeline',setTimeline)
 			ng.expose('play',play)
 			ng.expose('pause',pause)
 			ng.fireFlashReady();
@@ -83,14 +84,13 @@
 	   private function getAudio(incomingAudio:Object){
 		   loadAudio(incomingAudio.file)
 	   }
-	   private function getSources(incomingSources:Array){
+	   private function setSources(incomingSources:Array){
 		   isReady = false;
 		   sources = incomingSources;
 		   init();
 	   }
-	   private function getVideoData(data){
-	   		videoData = data;
-	   		init();
+	   private function setTimeline(incomingTimeline:Array){
+	   		videoData.timeline = incomingTimeline;	   		
 	   }
 	   private function init(){
 	   		var i:int = 0;
@@ -115,7 +115,6 @@
 	   		addChild(playbutton)
 	   		
 	   		addChild(progressBar)
-			addChild(log)
 	   		pause();
 
 	   }
@@ -158,8 +157,7 @@
 	   private function set cursorAt(timelineEl:Object){
 	   		if(_cursorAt==null || timelineEl.videoId != _cursorAt.videoId){
 	   			_cursorAt = timelineEl;
-	   			trace('current video changed!: '+ cursorAt.videoId)
-	   			ng.call('getCursorAt(data)',{data:cursorAt})// Notify angular
+	   			ng.call('setCursorAt(data)',{data:cursorAt})// Notify angular
 	   		}
 	   }
 	   private function get cursorAt():Object{
@@ -193,6 +191,7 @@
 	   			}
 	   		}
 	   		progressBar.setProgress(evt.data.time);
+	   		ng.call('setPosition(time)',{time:evt.data.time}) // Notify angular
 	   }
 	   private function onLoadProgress(evt:Event){
 			loadProgress++
