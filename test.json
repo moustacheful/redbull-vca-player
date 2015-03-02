@@ -1,0 +1,112 @@
+{
+    "_id": "54f117dae7597c030002a898",
+    "author": {
+        "_id": "54e38fcdc684b8b9252ec770",
+        "fbid": "1082441025115580",
+        "name": {
+            "first": "Diego",
+            "last": "Escares"
+        }
+    },
+    "rider": {
+        "_id": "54ca4a4f90ed24300baf3b08",
+        "slug": "tomas-slavik",
+        "sources": {
+            "length": "45",
+            "audio": [{
+                "artist": "Dynamic Latin",
+                "name": "Destination Awesome",
+                "file": "https://s3-us-west-2.amazonaws.com/redbull-vca/audio/SORBW002704_GUARANA_DestinationAwesome.mp3"
+            }, {
+                "artist": "Explositrónica",
+                "name": "Cool Action",
+                "file": "https://s3-us-west-2.amazonaws.com/redbull-vca/audio/SORBW002777_ADRENALINEKICK_CoolAction.mp3"
+            }, {
+                "artist": "Green Beats",
+                "name": "Poleposition",
+                "file": "https://s3-us-west-2.amazonaws.com/redbull-vca/audio/SORBW002645_BEATS_PolePosition.mp3"
+            }],
+            "videos": [{
+                "id": 1,
+                "thumbnail": "https://s3-us-west-2.amazonaws.com/redbull-vca/previews/preview-slavik.jpg",
+                "name": "video 1",
+                "file": "https://s3-us-west-2.amazonaws.com/redbull-vca/01.mp4",
+                "locked": false
+            }, {
+                "id": 2,
+                "thumbnail": "https://s3-us-west-2.amazonaws.com/redbull-vca/previews/preview-cruz.jpg",
+                "name": "video 2",
+                "file": "https://s3-us-west-2.amazonaws.com/redbull-vca/02.mp4",
+                "locked": false
+            }, {
+                "id": 3,
+                "thumbnail": "https://s3-us-west-2.amazonaws.com/redbull-vca/previews/preview-genova.jpg",
+                "name": "video 3",
+                "file": "https://s3-us-west-2.amazonaws.com/redbull-vca/01.mp4",
+                "locked": false
+            }, {
+                "id": 4,
+                "thumbnail": "https://s3-us-west-2.amazonaws.com/redbull-vca/previews/preview-metailler.jpg",
+                "name": "video 4",
+                "file": "https://s3-us-west-2.amazonaws.com/redbull-vca/02.mp4",
+                "locked": true
+            }]
+        },
+        "photoMedium": {
+            "public_id": "iv63kghh4d75evjwufvb",
+            "version": 1423171540,
+            "signature": "157b863b16bec67e906ef37e400582362975fe13",
+            "width": 480,
+            "height": 800,
+            "format": "jpg",
+            "resource_type": "image",
+            "url": "http://res.cloudinary.com/digital-meat/image/upload/v1423171540/iv63kghh4d75evjwufvb.jpg",
+            "secure_url": "https://res.cloudinary.com/digital-meat/image/upload/v1423171540/iv63kghh4d75evjwufvb.jpg"
+        },
+        "name": {
+            "last": "Slavik",
+            "first": "Tomas"
+        }
+    },
+    "__v": 0,
+    "r": {
+        "coordinates": [0.41289923852309585, 0.8989826147444546],
+        "type": "Point"
+    },
+    "status": "Published",
+    "shared": 0,
+    "views": 4,
+    "likes": 0,
+    "submittedAt": "2015-02-28T01:20:26.158Z",
+    "soundtrack": {
+        "artist": "Dynamic Latin",
+        "name": "Destination Awesome",
+        "file": "https://s3-us-west-2.amazonaws.com/redbull-vca/audio/SORBW002704_GUARANA_DestinationAwesome.mp3"
+    },
+    "timeline": [{
+        "videoId": 1,
+        "from": 0,
+        "to": 0.07584745762711864
+    }, {
+        "videoId": 2,
+        "from": 0.07584745762711864,
+        "to": 0.14703389830508476
+    }, {
+        "videoId": 3,
+        "from": 0.14703389830508476,
+        "to": 0.16520311780569624
+    }, {
+        "videoId": 1,
+        "from": 0.16520311780569624,
+        "to": 0.1871924839395733
+    }, {
+        "videoId": 4,
+        "from": 0.1871924839395733,
+        "to": 0.3809322033898305
+    }, {
+        "videoId": 4,
+        "from": 0.3809322033898305,
+        "to": 1
+    }],
+    "url": "http://redbull-vca.herokuapp.com/entry/54f117dae7597c030002a898"
+}

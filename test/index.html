@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <script type="text/javascript" src="../bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../bower_components/swfobject/swfobject/swfobject.js"></script>
+    <script type="text/javascript" src="../bower_components/w11k-flash/dist/js/w11k-flash.js"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bower_components/w11k-flash/dist/js/w11k-flash.css"/>
+
+    <script type="text/javascript">
+      var module = angular.module('test', ['w11k.flash']);
+
+      module.config(function (w11kFlashConfig) {
+        w11kFlashConfig.templateUrl = '../bower_components/w11k-flash/dist/js/w11k-flash.tpl.html'
+      });
+
+      module.controller('TestCtrl', function ($scope,$http) {
+        $scope.flash = {
+          visible: true,
+          config: {
+            swfUrl: '../player.swf',
+            width: 720,
+            height: 404,
+            callback: function (readyPromise) {
+              $scope.flash.ready = readyPromise;
+            }
+          }
+        };
+        $http.get('test.json').success(function(data){
+          $scope.setVideoData(data);
+        })
+        $scope.nonFlash = {
+          style: {
+            height: $scope.flash.config.height + 'px'
+          }
+        };
+
+        $scope.toggle = function () {
+          $scope.flash.visible = !$scope.flash.visible;
+        };
+
+        $scope.me = {
+          name: 'AngularJS'
+        };
+        $scope.setVideoData = function(data){
+          $scope.flash.ready.then(function(flash){
+            console.log('attemplting play')
+            flash.setVideoData(data)
+          })
+        }
+        $scope.play = function(){
+          $scope.flash.ready.then(function (flash) {
+            flash.play();
+          })
+        }
+        $scope.pause = function(){
+          $scope.flash.ready.then(function (flash) {
+            flash.pause();
+          })
+        }
+        $scope.talkToMe = function (message) {
+          $scope.message = message;
+          $scope.response = 'Hello! My name is ' + $scope.me.name + '.'
+
+          return $scope.response;
+        };
+
+        $scope.cursorAt = {};
+        $scope.getCursorAt = function(data){
+          $scope.cursorAt = data;
+        }
+
+        $scope.talkToFlex = function () {
+          if (angular.isDefined($scope.flash.ready)) {
+            $scope.flash.ready.then(function (flash) {
+              $scope.message = 'Hello! My name is ' + $scope.me.name + '. What is your name?';
+              // call exposed ActionScript function
+              $scope.response = flash.talkToMe($scope.message);
+            });
+          }
+        };
+
+      });
+    </script>
+
+  </head>
+  <body ng-app="test" ng-controller="TestCtrl">
+  <div class="container">
+    <div class="well">
+      <div class="row">
+        <div class="col-sm-4 col-md-3">
+          <button ng-click="setVideoData()">SET DATA</button>
+        </div>
+        <div class="col-sm-8 col-md-9">
+          <div class="form-group">
+            <label>Switch Flash Content</label><br/>
+            <div class="btn-group">
+              <button class="btn btn-primary" ng-click="play()">Play</button>
+              <button class="btn btn-primary" ng-click="pause()">Pause</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="well">
+      <div ng-hide="flash.visible" ng-style="nonFlash.style">
+        <h4>Non-Flash Content</h4>
+        Content rendered by AngularJS
+      </div>
+      <div w11k-flash="flash.config" w11k-flash-visible="flash.visible"></div>
+    </div>
+    <div class="well">
+      {{ cursorAt | json  }}
+    </div>
+    <div class="well">
+      <div class="form-group">
+        <label for="me.name">Entry JSON</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="me.name" ng-model="me.name" placeholder="Please enter your name" />
+          <span class="input-group-addon" ng-click="talkToFlex()">Talk to Flex</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Message</label>
+        <div>{{message}}</div>
+      </div>
+
+      <div class="form-group">
+        <label>Response</label>
+        <div>{{response}}</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  </body>
+</html>
