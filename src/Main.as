@@ -75,18 +75,21 @@
 			ng = AngularJSAdapter.getInstance();
 			ng.setFlashId(flashVars.w11kFlashId || 'NONE');
 			ng.expose('setSources',setSources);
-			ng.expose('setAudio',getAudio);
+			ng.expose('setAudio',setAudio);
 			ng.expose('setTimeline',setTimeline)
 			ng.expose('play',play)
 			ng.expose('pause',pause)
 			ng.fireFlashReady();
+	   		//ng.call('swfLog(a)',{a:' videos provided'}); 
 	   }
-	   private function getAudio(incomingAudio:Object){
+	   private function setAudio(incomingAudio:Object){
 		   loadAudio(incomingAudio.file)
 	   }
 	   private function setSources(incomingSources:Array){
 		   isReady = false;
 		   sources = incomingSources;
+	   		//ng.call('swfLog(a)',{a:sources.length + ' videos provided'}); 
+
 		   init();
 	   }
 	   private function setTimeline(incomingTimeline:Array){
@@ -123,7 +126,7 @@
 	   		pause();
 	   		soundtrack = new Sound(new URLRequest(url))
 	   		soundtrack.addEventListener(Event.COMPLETE,function(evt){
-	   			isReady = true;
+	   			//isReady = true;
 	   			onLoadProgress(evt)
 	   		})
 	   }
@@ -195,10 +198,14 @@
 	   }
 	   private function onLoadProgress(evt:Event){
 			loadProgress++
+	   		//ng.call('swfLog(a)',{a:loadProgress}) 
    			if(loadProgress == videos.length+1){
 	   			trace('Done loading')
 	   			progressBar.setTotalTime(master.meta.duration)
 	   			state = 'paused';				
+			}
+			if(loadProgress >= videos.length+1){
+				isReady = true
 			}
 	   }
 
